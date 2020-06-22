@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <CheckBox
+        android:id="@+id/cb_isChecked"
+        android:layout_width="@dimen/checkbox_width_height"
+        android:layout_height="@dimen/checkbox_width_height" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/item_member_detail_layout_marginStart"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_to_do_list_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text_color"
+            android:textSize="@dimen/tv_todo_list_name_text_size"
+            tools:text="ToDo ListName" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_edit_to_do_list_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginEnd="@dimen/item_label_color_selected_image_marginEnd"
+        android:contentDescription="@string/image_contentDescription"
+        android:src="@drawable/ic_edit"/>
+
+    <ImageView
+        android:id="@+id/iv_delete_to_do_list_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:contentDescription="@string/image_contentDescription"
+        android:src="@drawable/ic_close_red_24dp"
+        android:visibility="visible" />
+
+</LinearLayout>

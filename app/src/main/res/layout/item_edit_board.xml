@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="@dimen/card_view_elevation"
+    app:cardCornerRadius="@dimen/card_view_corner_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/card_view_layout_content_padding">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_board_image"
+            android:layout_width="@dimen/board_image_size"
+            android:layout_height="@dimen/board_image_size"
+            android:contentDescription="@string/image_contentDescription"
+            android:src="@drawable/ic_board_place_holder"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/card_details_members_label_marginTop"
+            android:text="@string/board_name"
+            android:textColor="@color/secondary_text_color"
+            android:textSize="@dimen/card_details_label_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/member_dialog_divider_height"
+            android:layout_marginBottom="@dimen/member_dialog_divider_marginTopBottom"
+            android:background="@color/divider_color" />
+
+        <LinearLayout
+            android:id="@+id/ll_title_edit_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/ib_close_board_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/image_contentDescription"
+                android:padding="@dimen/task_item_image_buttons_padding"
+                android:src="@drawable/ic_cancel"/>
+
+            <EditText
+                android:id="@+id/et_edit_board_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="@string/board_name"
+                android:hint="@string/board_name"
+                android:inputType="text"/>
+
+            <ImageButton
+                android:id="@+id/ib_done_board_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/image_contentDescription"
+                android:padding="@dimen/task_item_image_buttons_padding"
+                android:src="@drawable/ic_done"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_board_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_board_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/task_item_title_text_padding"
+                android:textColor="@color/primary_text_color"
+                android:textSize="@dimen/task_item_title_text_size"
+                tools:text="Title"/>
+            <ImageButton
+                android:id="@+id/ib_edit_board_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/task_item_image_buttons_padding"
+                android:contentDescription="@string/image_contentDescription"
+                android:src="@drawable/ic_edit"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_details_members_label_marginTop"
+                android:text="@string/members"
+                android:textColor="@color/secondary_text_color"
+                android:textSize="@dimen/card_details_label_text_size" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/member_dialog_divider_height"
+                android:layout_marginBottom="@dimen/member_dialog_divider_marginTopBottom"
+                android:background="@color/divider_color" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_selected_members_list_edit_board"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_details_value_marginTop"
+                android:visibility="visible"
+                tools:visibility="visible"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll_add_member_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageButton
+                    android:id="@+id/ib_close_member_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:contentDescription="@string/image_contentDescription"
+                    android:padding="@dimen/task_item_image_buttons_padding"
+                    android:src="@drawable/ic_cancel"/>
+
+                <EditText
+                    android:id="@+id/et_add_member_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/email"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"/>
+
+                <ImageButton
+                    android:id="@+id/ib_done_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:contentDescription="@string/image_contentDescription"
+                    android:padding="@dimen/task_item_image_buttons_padding"
+                    android:src="@drawable/ic_done"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_add_member"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/shape_button_rounded"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="@dimen/member_dialog_action_button_padding"
+                android:text="@string/add_member"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/btn_text_size"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

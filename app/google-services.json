@@ -1,0 +1,151 @@
+{
+  "project_info": {
+    "project_number": "317872855320",
+    "firebase_url": "https://loginsignin-d1ee7.firebaseio.com",
+    "project_id": "loginsignin-d1ee7",
+    "storage_bucket": "loginsignin-d1ee7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317872855320:android:82a48ff3925279063ee66d",
+        "android_client_info": {
+          "package_name": "com.tvbogiapp.loginsignin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317872855320-6nlmejfhjh4odlq2qd3idkknl3k2vhbm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT9jlz-rrPV1JMlt_jaYXhZBI0cNluVD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317872855320-6nlmejfhjh4odlq2qd3idkknl3k2vhbm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317872855320:android:b9b7e92988c56c183ee66d",
+        "android_client_info": {
+          "package_name": "com.tvbogiapp.loginsigninv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317872855320-biuacefi7k984litlm7ccr0kfcn1o8g0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tvbogiapp.loginsigninv2",
+            "certificate_hash": "1522addce6f88770723f0293b490ce83e9060eac"
+          }
+        },
+        {
+          "client_id": "317872855320-6nlmejfhjh4odlq2qd3idkknl3k2vhbm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT9jlz-rrPV1JMlt_jaYXhZBI0cNluVD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317872855320-6nlmejfhjh4odlq2qd3idkknl3k2vhbm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317872855320:android:ab55ac5e8926cc813ee66d",
+        "android_client_info": {
+          "package_name": "com.tvbogiapp.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317872855320-odsqsp1bqvo145810ngdvg4v89mnq645.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tvbogiapp.myapplication",
+            "certificate_hash": "1522addce6f88770723f0293b490ce83e9060eac"
+          }
+        },
+        {
+          "client_id": "317872855320-6nlmejfhjh4odlq2qd3idkknl3k2vhbm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT9jlz-rrPV1JMlt_jaYXhZBI0cNluVD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317872855320-6nlmejfhjh4odlq2qd3idkknl3k2vhbm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317872855320:android:374c3bda7441d97a3ee66d",
+        "android_client_info": {
+          "package_name": "com.tvbogiapp.projectmanag"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317872855320-dep8usvab60fdevp8qqm27v3ac2al57n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tvbogiapp.projectmanag",
+            "certificate_hash": "1522addce6f88770723f0293b490ce83e9060eac"
+          }
+        },
+        {
+          "client_id": "317872855320-6nlmejfhjh4odlq2qd3idkknl3k2vhbm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT9jlz-rrPV1JMlt_jaYXhZBI0cNluVD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317872855320-6nlmejfhjh4odlq2qd3idkknl3k2vhbm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
