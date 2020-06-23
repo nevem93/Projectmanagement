@@ -44,10 +44,10 @@ open class TaskListItemAdapter (
                                   position: Int) {
         val model = list[position]
         if(holder is MyViewHolder){
-            if(position == list.size-1){
+            if (position == list.size-1) {
                 holder.itemView.tv_add_task_list.visibility = View.VISIBLE
                 holder.itemView.ll_task_item.visibility = View.GONE
-            }else{
+            } else {
                 holder.itemView.tv_add_task_list.visibility = View.GONE
                 holder.itemView.ll_task_item.visibility = View.VISIBLE
             }

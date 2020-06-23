@@ -29,26 +29,19 @@ class TaskListActivity : BaseActivity() {
         if (intent.hasExtra(Constants.DOCUMENT_ID)){
             mBoardDocumentId = intent.getStringExtra(Constants.DOCUMENT_ID)!!
         }
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FireStoreClass().getBoardDetails(this,mBoardDocumentId)
     }
     fun boardDetails(board: Board) {
         mBoardDetails = board
+        hideProgressDialog()
         setupActionBar()
 
         rv_task_list.visibility = View.VISIBLE
 
-        val adapter = TaskListItemAdapter(this, mBoardDetails.taskList)
-        rv_task_list.adapter = adapter
-
-
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().getAssignedMembersListDetails(this,
             mBoardDetails.assignedTo)
-    }
-
-    override fun onResume() {
-        showProgressDialog(resources.getString(R.string.please_wait))
-        FireStoreClass().getBoardDetails(this,mBoardDocumentId)
-        super.onResume()
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -116,6 +109,7 @@ class TaskListActivity : BaseActivity() {
     }
 
     fun addUpdateTaskListSuccess(){
+
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().getBoardDetails(this@TaskListActivity, mBoardDetails.documentId)
     }
@@ -124,7 +118,7 @@ class TaskListActivity : BaseActivity() {
         Log.e("Task List Name", taskListName)
         val task = Task(taskListName, FireStoreClass().getCurrentUserID())
         mBoardDetails.taskList.add(0,task)
-        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size -1)
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().addUpdateTaskList(this@TaskListActivity,mBoardDetails)
     }
@@ -133,6 +127,7 @@ class TaskListActivity : BaseActivity() {
         val task = Task(listName, model.createdBy, model.cards)
 
         mBoardDetails.taskList[position] = task
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().addUpdateTaskList(this@TaskListActivity,mBoardDetails)
     }
@@ -169,30 +164,21 @@ class TaskListActivity : BaseActivity() {
     }
 
     fun boardMembersDetailsList(list:ArrayList<User>){
-        hideProgressDialog()
+
         mAssignedMembersDetailList = list
+        hideProgressDialog()
 
-        mBoardDetails.taskList
-
-        rv_task_list.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.HORIZONTAL,false)
-        rv_task_list.setHasFixedSize(true)
-
-
-      /*  val addTaskList = Task(resources.getString(R.string.add_list))
+        val addTaskList = Task(resources.getString(R.string.add_list))
         mBoardDetails.taskList.add(addTaskList)
 
-       */
 
 
-        /*rv_task_list.layoutManager = LinearLayoutManager(
+        rv_task_list.layoutManager = LinearLayoutManager(
             this,LinearLayoutManager.HORIZONTAL,false)
         rv_task_list.setHasFixedSize(true)
+
         val adapter = TaskListItemAdapter(this@TaskListActivity, mBoardDetails.taskList)
         rv_task_list.adapter = adapter
-
-         */
-        
     }
 
     fun updateCardsInTaskList(taskListPosition: Int, cards:ArrayList<Card>){
@@ -203,31 +189,6 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().addUpdateTaskList(this@TaskListActivity,mBoardDetails)
     }
-
-    private fun alertDialogForDeleteBoard(boardName: String, boardId: String){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(resources.getString(R.string.alert))
-        builder.setMessage(
-            resources.getString(
-                R.string.confirmation_message_to_delete_board,
-                boardName
-            )
-        )
-        builder.setIcon(android.R.drawable.ic_dialog_alert)
-
-        builder.setPositiveButton(resources.getString(R.string.yes)){dialogInterface, _ ->
-            dialogInterface.dismiss()
-            showProgressDialog(resources.getString(R.string.please_wait))
-            MainActivity().deleteBoard(boardId)
-        }
-        builder.setNegativeButton(resources.getString(R.string.no)){dialogInterface, _ ->
-            dialogInterface.dismiss()
-        }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-    }
-
 
     fun updateBoardListSuccess(){
         hideProgressDialog()

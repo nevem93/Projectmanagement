@@ -34,7 +34,7 @@
     <string name="members">Members</string>
 
     <string name="add_member">Add Member</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">Cancel</string>
     <string name="add">ADD</string>
     <string name="search_member">Add Member</string>
 
@@ -68,11 +68,12 @@
     <string name="tv_dialog_title_change_picture">Change picture</string>
     <string name="change_picture">Change picture</string>
     <string name="save_picture_to_board_question">Do you want to save this picture for your board?</string>
-    <string name="save">save</string>
+    <string name="save">Save</string>
     <string name="editing">Editing</string>
     <string name="change">change</string>
     <string name="archive_board">Archive Board</string>
     <string name="activate_board">Activate Board</string>
     <string name="delete_board">Delete Board</string>
+    <string name="select">Select</string>
 
 </resources>

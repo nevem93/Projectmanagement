@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -27,7 +26,7 @@
                 android:textColor="@color/primary_text_color"
                 android:textSize="@dimen/dialog_member_title_text_size"
                 android:textStyle="bold"
-                tools:text="@string/editing" />
+                android:text="@string/editing" />
 
             <View
                 android:layout_width="match_parent"
@@ -66,7 +65,7 @@
                     android:padding="@dimen/member_dialog_action_button_padding"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/member_dialog_action_button_text_size"
-                    tools:text="@string/change" />
+                    android:text="@string/change" />
 
                 <TextView
                     android:id="@+id/tv_cancel"

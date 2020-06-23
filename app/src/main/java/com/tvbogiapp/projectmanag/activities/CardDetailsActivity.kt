@@ -23,9 +23,11 @@ import com.tvbogiapp.projectmanag.firebase.FireStoreClass
 import com.tvbogiapp.projectmanag.models.*
 import com.tvbogiapp.projectmanag.utils.Constants
 import kotlinx.android.synthetic.main.activity_card_details.*
+import kotlinx.android.synthetic.main.activity_card_details.ib_done_card_name
 import kotlinx.android.synthetic.main.dialog_add_to_do_list_item.*
 import kotlinx.android.synthetic.main.dialog_add_to_do_list_item.tv_add
 import kotlinx.android.synthetic.main.dialog_add_to_do_list_item.tv_cancel
+import kotlinx.android.synthetic.main.item_task.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,7 +35,7 @@ import kotlin.collections.ArrayList
 class CardDetailsActivity : BaseActivity() {
 
     private lateinit var mBoardDetails: Board
-    private var mTaskListPositon = -1
+    private var mTaskListPosition = -1
     private var mCardPosition = -1
     private var mSelectedColor = ""
     private lateinit var mMembersDetailList: ArrayList<User>
@@ -50,24 +52,23 @@ class CardDetailsActivity : BaseActivity() {
         setupToDoList()
 
         tv_card_title.text = mBoardDetails
-            .taskList[mTaskListPositon]
+            .taskList[mTaskListPosition]
             .cards[mCardPosition]
             .name
+        et_name_card_details.setText(mBoardDetails
+            .taskList[mTaskListPosition]
+            .cards[mCardPosition]
+            .name)
 
         ib_edit_card_name.setOnClickListener {
-            et_name_card_details.setText(mBoardDetails
-                .taskList[mTaskListPositon]
-                .cards[mCardPosition]
-                .name)
-
             ll_card_title_view.visibility =View.GONE
             ll_card_title_edit_view.visibility = View.VISIBLE
         }
         ib_done_card_name.setOnClickListener{
             if (et_name_card_details.text.isNotEmpty()){
-                mBoardDetails.taskList[mTaskListPositon]
+                mBoardDetails.taskList[mTaskListPosition]
                     .cards[mCardPosition].name = et_name_card_details.text.toString()
-                tv_card_title.text = mBoardDetails.taskList[mTaskListPositon]
+                tv_card_title.text = mBoardDetails.taskList[mTaskListPosition]
                     .cards[mCardPosition].name
                 ll_card_title_view.visibility =View.VISIBLE
                 ll_card_title_edit_view.visibility = View.GONE
@@ -82,21 +83,11 @@ class CardDetailsActivity : BaseActivity() {
         }
 
 
-        mSelectedColor = mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition].labelColor
+        mSelectedColor = mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].labelColor
         if(mSelectedColor.isNotEmpty()){
             setColor()
         }
 
-        btn_update_card_details.setOnClickListener {
-            if(et_name_card_details.text.toString().isNotEmpty()){
-
-                updateCardDetails()
-            } else
-            {
-                Toast.makeText(this@CardDetailsActivity,
-                "Enter a card name.", Toast.LENGTH_SHORT).show()
-            }
-        }
         tv_select_label_color.setOnClickListener {
             labelColorsListDialog()
         }
@@ -109,7 +100,7 @@ class CardDetailsActivity : BaseActivity() {
         }
 
         mSelectedDueDateMilliSeconds =
-            mBoardDetails.taskList[mTaskListPositon]
+            mBoardDetails.taskList[mTaskListPosition]
                 .cards[mCardPosition]
                 .dueDate
 
@@ -121,17 +112,18 @@ class CardDetailsActivity : BaseActivity() {
 
         tv_select_due_date.setOnClickListener {
             showDatePicker()
+            updateCardDetails()
         }
     }
 
     private fun deleteCard(){
         val cardsList: ArrayList<Card> = mBoardDetails
-            .taskList[mTaskListPositon].cards
+            .taskList[mTaskListPosition].cards
         cardsList.removeAt(mCardPosition)
         val taskList: ArrayList<Task> = mBoardDetails.taskList
         taskList.removeAt(taskList.size-1)
 
-        taskList[mTaskListPositon].cards = cardsList
+        taskList[mTaskListPosition].cards = cardsList
 
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().addUpdateTaskList(this@CardDetailsActivity, mBoardDetails)
@@ -175,7 +167,7 @@ class CardDetailsActivity : BaseActivity() {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_white_color_back_24dp)
             actionBar.title = mBoardDetails
-                .taskList[mTaskListPositon]
+                .taskList[mTaskListPosition]
                 .cards[mCardPosition]
                 .name
 
@@ -213,7 +205,7 @@ class CardDetailsActivity : BaseActivity() {
 
         when (item.itemId){
             R.id.action_delete_card->{
-                alertDialogForDeletedCard(mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition].name)
+                alertDialogForDeletedCard(mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].name)
                 return true
             }
         }
@@ -225,7 +217,7 @@ class CardDetailsActivity : BaseActivity() {
             mBoardDetails = intent.getParcelableExtra(Constants.BOARD_DETAIL)!!
         }
         if(intent.hasExtra(Constants.TASK_LIST_ITEM_POSITION)){
-            mTaskListPositon = intent.getIntExtra(
+            mTaskListPosition = intent.getIntExtra(
                 Constants.TASK_LIST_ITEM_POSITION, -1)
         }
         if(intent.hasExtra(Constants.CARD_LIST_ITEM_POSITION)){
@@ -272,24 +264,24 @@ class CardDetailsActivity : BaseActivity() {
         val toDoItem = ToDoList(toDoItemName, FireStoreClass().getCurrentUserID(),false)
 
         mBoardDetails
-            .taskList[mTaskListPositon]
+            .taskList[mTaskListPosition]
             .cards[mCardPosition]
             .toDoList.add(0, toDoItem)
         updateCardDetails()
     }
 
-    fun updateAfterCheckedToDoItem(itemPosition: Int, itemName:String, checkResult: Boolean){
+    fun updateAfterCheckedToDoItem(){
         updateCardDetails()
     }
 
     fun deleteToDoItemFromToDoList(position:Int){
-        mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition].toDoList.removeAt(position)
-        mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition].toDoList.removeAt(
-            mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition].toDoList.size-1)
+        mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].toDoList.removeAt(position)
+        mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].toDoList.removeAt(
+            mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].toDoList.size-1)
         updateCardDetails()
     }
      fun changeToDoItemName(toDoItemNewName:String, position: Int){
-         mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition].toDoList[position].name = toDoItemNewName
+         mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].toDoList[position].name = toDoItemNewName
          updateCardDetails()
      }
 
@@ -297,7 +289,7 @@ class CardDetailsActivity : BaseActivity() {
     private fun setupToDoList(){
 
         val cardAssignedToDoList =
-            mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition].toDoList
+            mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].toDoList
 
         rv_to_do_list.layoutManager = LinearLayoutManager(this)
         rv_to_do_list.setHasFixedSize(true)
@@ -310,7 +302,7 @@ class CardDetailsActivity : BaseActivity() {
 
     }
     private fun membersListDialog(){
-        val cardAssignedMembersList = mBoardDetails.taskList[mTaskListPositon]
+        val cardAssignedMembersList = mBoardDetails.taskList[mTaskListPosition]
             .cards[mCardPosition].assignedTo
 
         if(cardAssignedMembersList.size>0){
@@ -334,16 +326,16 @@ class CardDetailsActivity : BaseActivity() {
         ){
             override fun onItemSelected(user: User, action: String) {
                 if (action == Constants.SELECT){
-                    if (!mBoardDetails.taskList[mTaskListPositon]
+                    if (!mBoardDetails.taskList[mTaskListPosition]
                             .cards[mCardPosition]
                             .assignedTo.contains(user.id)){
-                        mBoardDetails.taskList[mTaskListPositon]
+                        mBoardDetails.taskList[mTaskListPosition]
                             .cards[mCardPosition]
                             .assignedTo
                             .add(user.id)
                     }
                 }else{
-                    mBoardDetails.taskList[mTaskListPositon]
+                    mBoardDetails.taskList[mTaskListPosition]
                         .cards[mCardPosition]
                         .assignedTo
                         .remove(user.id)
@@ -355,6 +347,7 @@ class CardDetailsActivity : BaseActivity() {
                     }
                 }
                 setupSelectedMembersList()
+                updateCardDetails()
             }
         }
         listDialog.show()
@@ -362,23 +355,22 @@ class CardDetailsActivity : BaseActivity() {
 
     private fun updateCardDetails(){
         val card = Card(
-            tv_card_title.text.toString(),
-            mBoardDetails.taskList[mTaskListPositon]
+            mBoardDetails.taskList[mTaskListPosition]
+                .cards[mCardPosition].name,
+            mBoardDetails.taskList[mTaskListPosition]
                 .cards[mCardPosition].createdBy,
-            mBoardDetails.taskList[mTaskListPositon]
+            mBoardDetails.taskList[mTaskListPosition]
                 .cards[mCardPosition].assignedTo,
             mSelectedColor,
             mSelectedDueDateMilliSeconds,
-            mBoardDetails.taskList[mTaskListPositon]
+            mBoardDetails.taskList[mTaskListPosition]
                 .cards[mCardPosition].toDoList
-
         )
 
+        //val taskList: ArrayList<Task> =mBoardDetails.taskList
 
-        val taskList: ArrayList<Task> =mBoardDetails.taskList
-        taskList.removeAt(taskList.size-1)
-
-        mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition] = card
+        mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition] = card
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().addUpdateTaskList(this@CardDetailsActivity, mBoardDetails)
 
@@ -394,6 +386,7 @@ class CardDetailsActivity : BaseActivity() {
             override fun onItemSelected(color: String) {
                 mSelectedColor = color
                 setColor()
+                updateCardDetails()
             }
 
         }
@@ -403,7 +396,7 @@ class CardDetailsActivity : BaseActivity() {
     private fun setupSelectedMembersList(){
 
         val cardAssignedMembersList =
-            mBoardDetails.taskList[mTaskListPositon].cards[mCardPosition].assignedTo
+            mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].assignedTo
         val selectedMembersList: ArrayList<SelectedMembers> = ArrayList()
 
         for (i in mMembersDetailList.indices){
@@ -450,16 +443,18 @@ class CardDetailsActivity : BaseActivity() {
         val day = c.get(Calendar.DAY_OF_MONTH)
         val dpd = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener{view, year, monthOfYear, dayOfMonth ->
-                val sDayOfMonth = if(dayOfMonth <10) "0$dayOfMonth" else "${dayOfMonth}"
+            DatePickerDialog.OnDateSetListener{ _, year, monthOfYear, dayOfMonth ->
+                val sDayOfMonth = if(dayOfMonth <10) "0$dayOfMonth" else "$dayOfMonth"
                 val sMonthOfYear =
                     if ((monthOfYear +1)< 10) "0${monthOfYear +1}" else "${monthOfYear + 1}"
                 val selectedDate = "$sDayOfMonth/$sMonthOfYear/$year"
                 tv_select_due_date.text = selectedDate
+
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
 
                 val theDate = sdf.parse(selectedDate)
                 mSelectedDueDateMilliSeconds = theDate!!.time
+                updateCardDetails()
             },
             year,
             month,

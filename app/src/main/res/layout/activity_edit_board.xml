@@ -52,7 +52,7 @@
                     android:layout_marginTop="@dimen/card_details_members_label_marginTop"
                     android:textColor="@color/secondary_text_color"
                     android:textSize="@dimen/card_details_label_text_size"
-                    tools:text="@string/board_name" />
+                    android:text="@string/board_name" />
 
                 <View
                     android:layout_width="match_parent"

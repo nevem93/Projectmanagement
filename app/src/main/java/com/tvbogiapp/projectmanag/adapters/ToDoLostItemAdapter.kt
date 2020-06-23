@@ -58,7 +58,7 @@ open class ToDoLostItemAdapter
                     noStrikeThrough(holder.itemView.tv_to_do_list_name, model.name)
                 }
                 if (context is CardDetailsActivity){
-                    context.updateAfterCheckedToDoItem(position, model.name, model.checked)
+                    context.updateAfterCheckedToDoItem()
                 }
             }
             holder.itemView.iv_delete_to_do_list_member.setOnClickListener {

@@ -49,7 +49,7 @@
                 android:gravity="center"
                 android:textColor="@color/secondary_text_color"
                 android:textSize="@dimen/no_boards_available_text_size"
-                tools:text="@string/no_archive_boards_yet" />
+                android:text="@string/no_archive_boards_yet" />
 
         </androidx.cardview.widget.CardView>
     </LinearLayout>
