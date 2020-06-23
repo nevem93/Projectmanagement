@@ -8,7 +8,6 @@ data class User (
     val name: String = "",
     val email: String = "",
     val image: String = "",
-    val mobile: Long = 0,
     val fcmToken: String = "",
     var selected: Boolean = false
 ): Parcelable {
@@ -17,7 +16,6 @@ data class User (
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readLong(),
         parcel.readString()!!
        // parcel.readBoolean()!!
     ) {
@@ -28,7 +26,6 @@ data class User (
         writeString(name)
         writeString(email)
         writeString(image)
-        writeLong(mobile)
         writeString(fcmToken)
        // writeBoolean(selected)
     }

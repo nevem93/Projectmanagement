@@ -166,7 +166,7 @@ open class TaskListItemAdapter (
                         val targetPosition = target.adapterPosition
 
                         if(mPositionDraggedFrom == -1){
-                            mPositionDraggedFrom == draggedPosition
+                            mPositionDraggedFrom = draggedPosition
                         }
                         mPositionDraggedTo = targetPosition
                         Collections.swap(list[position].cards,

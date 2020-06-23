@@ -31,9 +31,8 @@ class MyProfileActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
-
         setupActionBar()
-
+        showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().loadUserData(this)
 
         iv_user_image_profile.setOnClickListener {
@@ -41,11 +40,10 @@ class MyProfileActivity : BaseActivity() {
                     Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED){
                 // show image chooser
-                Constants.showImageChooser(this)
-
+                Constants.showImageChooser(this@MyProfileActivity)
             }else {
                 ActivityCompat.requestPermissions(
-                    this,
+                    this@MyProfileActivity,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                     Constants.READ_STORAGE_PERMISSION_CODE
                 )
@@ -88,12 +86,12 @@ class MyProfileActivity : BaseActivity() {
         if(resultCode == Activity.RESULT_OK
             && requestCode == Constants.PICK_IMAGE_REQUEST_CODE
             && data!!.data != null){
-            mSelectedImageFileUri = data.data
+            mSelectedImageFileUri = data.data!!
 
             try {
                 Glide
-                    .with(this)
-                    .load(mSelectedImageFileUri)
+                    .with(this@MyProfileActivity)
+                    .load(Uri.parse(mSelectedImageFileUri.toString()))
                     .centerCrop()
                     .placeholder(R.drawable.ic_user_place_holder)
                     .into(iv_user_image_profile)
@@ -108,7 +106,7 @@ class MyProfileActivity : BaseActivity() {
         setSupportActionBar(toolbar_my_profile_activity)
 
         val actionBar = supportActionBar
-        if( actionBar != null){
+        if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_white_color_back_24dp)
             actionBar.title = resources.getString(R.string.my_profile_title)
@@ -121,7 +119,6 @@ class MyProfileActivity : BaseActivity() {
     }
 
     fun setUserDataInUI(user:User){
-
         mUserDetails = user
 
         Glide
@@ -133,9 +130,6 @@ class MyProfileActivity : BaseActivity() {
 
         et_name_profile.setText(user.name)
         et_email_profile.setText(user.email)
-        if (user.mobile != 0L){
-            et_mobile_profile.setText(user.mobile.toString())
-        }
     }
 
     private fun updateUserProfileData(){
@@ -153,11 +147,6 @@ class MyProfileActivity : BaseActivity() {
             anyChangesMade = true
             hideProgressDialog()
         }
-        if (et_mobile_profile.text.toString() !=mUserDetails.mobile.toString()){
-            userHashMap[Constants.MOBILE] = et_mobile_profile.text.toString().toLong()
-            anyChangesMade = true
-            hideProgressDialog()
-        }
         if(anyChangesMade)
             FireStoreClass().updateUserProfileData(this, userHashMap)
     }
@@ -170,23 +159,21 @@ class MyProfileActivity : BaseActivity() {
             val sRef: StorageReference =
                 FirebaseStorage.getInstance().reference.child(
                     "USER_IMAGE" + System.currentTimeMillis()
-                            +"."+Constants.getFileExtension(this, mSelectedImageFileUri))
-            sRef.putFile(mSelectedImageFileUri!!).addOnSuccessListener {
-                taskSnapshot ->
+                            +"."+Constants.getFileExtension(this@MyProfileActivity, mSelectedImageFileUri))
+            sRef.putFile(mSelectedImageFileUri!!)
+                .addOnSuccessListener { taskSnapshot ->
                 Log.e(
                     "Firebase Image URL", taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
                 )
-                taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
-                    uri ->
+                taskSnapshot.metadata!!.reference!!.downloadUrl
+                    .addOnSuccessListener { uri ->
                     Log.e("Downloadable Image URL", uri.toString())
 
                     mProfileImageURL = uri.toString()
-                    hideProgressDialog()
                     updateUserProfileData()
 
 
-                }.addOnFailureListener {
-                    exception ->
+                }.addOnFailureListener { exception ->
                     Toast.makeText(
                         this@MyProfileActivity,
                         exception.message,
@@ -200,9 +187,8 @@ class MyProfileActivity : BaseActivity() {
     }
 
     fun profileUpdateSuccess(){
-
+        hideProgressDialog()
         setResult(Activity.RESULT_OK)
-
         finish()
     }
 }
