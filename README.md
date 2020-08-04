@@ -17,7 +17,8 @@ Benefits:
 - Assign people to projects and tasks within projects to make it easier to track 
 
 
-##Installation
+#Installation
+
 https://github.com/nevem93/Projectmanag.git
 
 ## Contributing
