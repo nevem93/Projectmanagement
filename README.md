@@ -1,7 +1,4 @@
 # Projectmanagement
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-
-
 Project Management application for Android devices.
 It is a responsive and easy to use project management app that simplifies task management. 
 
