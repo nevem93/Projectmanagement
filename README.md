@@ -1,6 +1,7 @@
 # Projectmanagement
-![Projectmanag Logo](/home/bogi/Pictures/project management/logo.png)
+![GitHub Logo](/images/logo.png)
 Format: ![Alt Text](url)
+
 
 Project Management application for Android devices.
 It is a responsive and easy to use project management app that simplifies task management. 
